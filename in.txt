@@ -1,5 +1,12 @@
-set 0 0 0 0 13 0 1000 0
-inp 3
-skp 3
-jmp 5
+def @LOOP
+lbl @SUM
+def 0
+lbl @INP
+def 0
+lbl @LOOP
+inp @INP
+add @SUM @INP
+out @SUM
+skp @INP
+jmp @LOOP
 hlt
