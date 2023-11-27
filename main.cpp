@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
         } else if (fst == "jmp") {
             instrs.push_back(IJmp { parseLoc(splits[1]) });
         } else if (fst == "jmz") {
-            instrs.push_back(IJmz { parseLoc(splits[1]) });
+            instrs.push_back(IJmz { parseLoc(splits[1]), parseLoc(splits[2]) });
         } else if (fst == "skp") {
             instrs.push_back(ISkp { parseLoc(splits[1]) });
         } else if (fst == "lbl") {
@@ -141,10 +141,10 @@ int main(int argc, char* argv[]) {
     for (Instruction& instr : instrs) {
         if (IJmp* jmp = std::get_if<IJmp>(&instr)) {
             jmp->mem = fixAddr(curAddr + 1);
-            curAddr += 3;
+            curAddr += 2;
         } else if (IJmz* jmz = std::get_if<IJmz>(&instr)) {
             jmz->mem = fixAddr(curAddr + 1);
-            curAddr += 5;
+            curAddr += 4;
         }
 
         if (ILbl* lbl = std::get_if<ILbl>(&instr)) {
@@ -183,6 +183,7 @@ int main(int argc, char* argv[]) {
             output << "300" << ins->mem << '\n';
         } else if (IJmz* ins = std::get_if<IJmz>(&i)) {
             output << "00000\n";
+            output << toAddr(ins->tt) << '\n';
             output << "400" << toAddr(ins->ss) << '\n';
             output << "00000\n";
             output << "300" << ins->mem << '\n';
