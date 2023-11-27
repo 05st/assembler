@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
         } else if (fst == "sub") {
             instrs.push_back(ISub { parseLoc(splits[1]), parseLoc(splits[2] )});
         } else if (fst == "cpy") {
-            instrs.push_back(ISub { parseLoc(splits[1]), parseLoc(splits[2] )});
+            instrs.push_back(ICpy { parseLoc(splits[1]), parseLoc(splits[2] )});
         } else if (fst == "inz") {
             instrs.push_back(IInz { parseLoc(splits[1]), parseLoc(splits[2] )});
         } else if (fst == "get") {
